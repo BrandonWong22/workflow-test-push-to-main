@@ -6,8 +6,7 @@ on:
       - main
 
 permissions:
-  repository-projects: write
-  actions: write
+  contents: write
 
 jobs:
   update-readme:
