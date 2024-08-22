@@ -5,7 +5,9 @@ on:
     branches:
       - main
 
-permissions: write-all
+permissions:
+  repository-projects: write
+  actions: write
 
 jobs:
   update-readme:
