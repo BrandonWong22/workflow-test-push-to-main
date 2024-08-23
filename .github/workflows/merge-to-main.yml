@@ -24,7 +24,7 @@ jobs:
         run: |
           echo "GITHUB_USERNAME=${{ github.actor }}" >> $GITHUB_ENV
           git_email=$(git log -1 --pretty=format:'%ae')
-          echo "GITHUB_EMAIL=$git_email" >> $GITHUB_ENV
+          echo "GITHUB_EMAIL=brandonwong2608@gmail.com" >> $GITHUB_ENV
 
       - name: Configure Git
         run: |
