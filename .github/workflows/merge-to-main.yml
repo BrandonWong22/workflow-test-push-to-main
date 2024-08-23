@@ -37,6 +37,6 @@ jobs:
           git add README.md
           git commit -m "Add 'hello' to README.md"
           git push origin HEAD:main
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}  # Enables the action to push
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}  # Enables the action to push
           
