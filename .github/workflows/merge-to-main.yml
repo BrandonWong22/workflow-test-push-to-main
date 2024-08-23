@@ -12,8 +12,8 @@ jobs:
   update-readme:
     runs-on: ubuntu-latest
 
-    env:
-      GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+    # env:
+    #   GH_TOKEN: ${{ secrets.PAT_TOKEN }}
 
     steps:
       - name: Checkout repository
@@ -37,4 +37,6 @@ jobs:
           git add README.md
           git commit -m "Add 'hello' to README.md"
           git push origin HEAD:main
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}  # Enables the action to push
           
