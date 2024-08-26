@@ -18,9 +18,14 @@ jobs:
           # Specify prefixes for branches to be deleted
           prefixes=("feature/" "bugfix/")
 
+          branches=$(git branch -r | grep -E "${prefixes[0]}|${prefixes[1]}" | sed 's/origin\///')
+
+          # Log all branches found
+          echo "Branches matching prefixes: $branches"
+
           for prefix in "${prefixes[@]}"; do
             # Get the list of branches that match the prefix
-            branches=$(git branch -r | grep "$prefix" | sed 's/origin\///')
+            # branches=$(git branch -r | grep "$prefix" | sed 's/origin\///')
 
             for branch in $branches; do
               echo "Deleting branch: $branch"
