@@ -19,7 +19,7 @@ jobs:
 
       - name: Log first 3 characters of PAT_TOKEN
         run: |
-          echo "${{ secrets.PAT_TOKEN }}" | cut -c1-3
+          echo "${{ secrets.PAT_TOKEN }}" | cut -c1-6
 
       - name: Get GitHub username and email
         id: user_info
