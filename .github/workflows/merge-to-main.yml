@@ -21,19 +21,39 @@ jobs:
         run: |
           echo "GITHUB_USERNAME=${{ github.actor }}" >> $GITHUB_ENV
           git_email=$(git log -1 --pretty=format:'%ae')
-          echo "GITHUB_EMAIL=brandonwong2608@gmail.com" >> $GITHUB_ENV
+          echo "GITHUB_EMAIL=$git_email" >> $GITHUB_ENV
 
       - name: Configure Git
         run: |
           git config user.name $GITHUB_USERNAME
           git config user.email $GITHUB_EMAIL
 
-      - name: Add line to README
+      - name: Commit and push updated jest.config.json
         run: |
           echo "hello" >> README.md
-          git add README.md
-          git commit -m "Add 'hello' to README.md"
+          git pull
+          git add .
+          git commit -m "Update jest.config.json with new coverage threshold"
           git push origin HEAD:main
+
+      # - name: Get GitHub username and email
+      #   id: user_info
+      #   run: |
+      #     echo "GITHUB_USERNAME=${{ github.actor }}" >> $GITHUB_ENV
+      #     git_email=$(git log -1 --pretty=format:'%ae')
+      #     echo "GITHUB_EMAIL=brandonwong2608@gmail.com" >> $GITHUB_ENV
+
+      # - name: Configure Git
+      #   run: |
+      #     git config user.name $GITHUB_USERNAME
+      #     git config user.email $GITHUB_EMAIL
+
+      # - name: Add line to README
+      #   run: |
+      #     echo "hello" >> README.md
+      #     git add README.md
+      #     git commit -m "Add 'hello' to README.md"
+      #     git push origin HEAD:main
 
       # - name: Push changes
       #   env:
