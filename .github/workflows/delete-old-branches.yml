@@ -3,6 +3,7 @@ name: Delete Old Branches
 on:
   schedule:
     - cron: '10 16 * * *'  # Runs every day at 11:10 AM EST (4:10 PM UTC)
+  workflow_dispatch:
 
 jobs:
   delete-branches:
@@ -14,9 +15,6 @@ jobs:
 
       - name: Delete old feature and bugfix branches
         run: |
-          # Get the current date
-          current_date=$(date +%s)
-
           # Specify prefixes for branches to be deleted
           prefixes=("feature/" "bugfix/")
 
@@ -25,19 +23,9 @@ jobs:
             branches=$(git branch -r | grep "$prefix" | sed 's/origin\///')
 
             for branch in $branches; do
-              # Get the last commit date of the branch
-              last_commit_date=$(git show -s --format=%ci "origin/$branch")
-              last_commit_timestamp=$(date -d "$last_commit_date" +%s)
-
-              # Calculate the age of the branch in days
-              age_in_days=$(( (current_date - last_commit_timestamp) / 86400 ))
-
-              # If the branch is older than 30 days, delete it
-              if [ $age_in_days -gt 30 ]; then
-                echo "Deleting branch: $branch (age: $age_in_days days)"
-                git push origin --delete "$branch"
-              fi
+              echo "Deleting branch: $branch"
+              git push origin --delete "$branch"
             done
           done
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
