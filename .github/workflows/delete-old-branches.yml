@@ -15,24 +15,32 @@ jobs:
         with:
           fetch-depth: 0  # Fetch all branches
 
-      - name: Delete old feature and bugfix branches
+      - name: List remote branches
+        run: |
+          echo "Fetching all remote branches..."
+          git fetch --prune
+          echo "Remote branches:"
+          git branch -r
+
+      - name: Delete all feature and bugfix branches
         run: |
           # Specify prefixes for branches to be deleted
           prefixes=("feature/" "bugfix/")
-
+          
+          # Get the list of branches that match the prefixes
           branches=$(git branch -r | grep -E "${prefixes[0]}|${prefixes[1]}" | sed 's/origin\///')
 
           # Log all branches found
           echo "Branches matching prefixes: $branches"
 
-          for prefix in "${prefixes[@]}"; do
-            # Get the list of branches that match the prefix
-            # branches=$(git branch -r | grep "$prefix" | sed 's/origin\///')
-
-            for branch in $branches; do
+          for branch in $branches; do
+            # Check if the branch exists before attempting to delete it
+            if git show-ref --verify --quiet "refs/remotes/origin/$branch"; then
               echo "Deleting branch: $branch"
               git push origin --delete "$branch"
-            done
+            else
+              echo "Branch does not exist remotely: $branch"
+            fi
           done
         # env:
         #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
