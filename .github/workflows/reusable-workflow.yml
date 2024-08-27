@@ -19,7 +19,7 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
       - name: Update LINE_COVERAGE Variable
-        run: gh variable set LINE_COVERAGE -b main -v "100"
+        run: gh variable set LINE_COVERAGE --body 100
 
 
 
