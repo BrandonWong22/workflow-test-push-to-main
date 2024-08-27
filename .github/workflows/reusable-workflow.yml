@@ -21,27 +21,14 @@ jobs:
             const variableName = 'LINE_COVERAGE';
             const newValue = '100';
 
-            // Fetch the existing repository variables
-            const response = await github.actions.listRepoVariables({
+            await github.actions.updateRepoVariable({
               owner: repo.owner,
               repo: repo.repo,
+              name: variableName,
+              value: newValue,
             });
 
-            // Find the LINE_COVERAGE variable and update it
-            const existingVariable = response.data.find(variable => variable.name === variableName);
-
-            if (existingVariable) {
-              // Update the existing variable
-              await github.actions.updateRepoVariable({
-                owner: repo.owner,
-                repo: repo.repo,
-                name: variableName,
-                value: newValue,
-              });
-              console.log(`Updated ${variableName} to ${newValue}`);
-            } else {
-              console.log(`Variable ${variableName} not found`);
-            }
+            console.log(`Updated ${variableName} to ${newValue}`);
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
