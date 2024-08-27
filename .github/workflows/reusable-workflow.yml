@@ -9,27 +9,41 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.PAT_TOKEN }} # Use the input directly here
 
-      - name: Get GitHub username and email
-        id: user_info
+      - name: Install GitHub CLI
         run: |
-          echo "GITHUB_USERNAME=${{ github.actor }}" >> $GITHUB_ENV
-          git_email=$(git log -1 --pretty=format:'%ae')
-          echo "GITHUB_EMAIL=$git_email" >> $GITHUB_ENV
+          sudo apt-get update
+          sudo apt-get install -y gh
 
-      - name: Configure Git
-        run: |
-          git config user.name $GITHUB_USERNAME
-          git config user.email $GITHUB_EMAIL
+      - name: Authenticate GitHub CLI
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
-      - name: Add line to README
-        run: |
-          git pull
-          echo "hello" >> README.md
-          git add README.md
-          git commit -m "Add 'hello' to README.md"
-          git push origin HEAD:main
+      - name: Update LINE_COVERAGE Variable
+        run: gh variable set LINE_COVERAGE -b main -v "100"
+
+
+
+      # - name: Checkout repository
+      #   uses: actions/checkout@v4
+      #   with:
+      #     token: ${{ secrets.PAT_TOKEN }} # Use the input directly here
+
+      # - name: Get GitHub username and email
+      #   id: user_info
+      #   run: |
+      #     echo "GITHUB_USERNAME=${{ github.actor }}" >> $GITHUB_ENV
+      #     git_email=$(git log -1 --pretty=format:'%ae')
+      #     echo "GITHUB_EMAIL=$git_email" >> $GITHUB_ENV
+
+      # - name: Configure Git
+      #   run: |
+      #     git config user.name $GITHUB_USERNAME
+      #     git config user.email $GITHUB_EMAIL
+
+      # - name: Add line to README
+      #   run: |
+      #     git pull
+      #     echo "hello" >> README.md
+      #     git add README.md
+      #     git commit -m "Add 'hello' to README.md"
+      #     git push origin HEAD:main
