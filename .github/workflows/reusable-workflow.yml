@@ -28,6 +28,7 @@ jobs:
 
       - name: Add line to README
         run: |
+          git pull
           echo "hello" >> README.md
           git add README.md
           git commit -m "Add 'hello' to README.md"
