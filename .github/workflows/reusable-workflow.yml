@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          token: "${{ secrets.PAT_TOKEN }}" # Use the input directly here
+          token: ${{ secrets.PAT_TOKEN }} # Use the input directly here
 
       - name: Get GitHub username and email
         id: user_info
