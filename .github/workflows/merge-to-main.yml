@@ -12,3 +12,5 @@ permissions:
 jobs:
   update-readme:
     uses: ./.github/workflows/reusable-workflow.yml
+    secrets:
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
