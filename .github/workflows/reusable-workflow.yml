@@ -26,7 +26,7 @@ jobs:
           -H "Accept: application/vnd.github+json" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
           /repos/BrandonWong22/workflow-test-push-to-main/actions/variables/LINE_COVERAGE \
-          -f "name=LINE_COVERAGE" -f "value=100"
+          -f "name=LINE_COVERAGE" -f "value=120"
   
 
     # steps:
