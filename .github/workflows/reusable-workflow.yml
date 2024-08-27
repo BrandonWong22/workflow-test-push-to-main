@@ -8,14 +8,33 @@ jobs:
   update-readme:
     runs-on: ubuntu-latest
 
+
+
     steps:
-      - uses: actions/checkout@v4
-      - run: |
-            gh variable list
-            gh variable set LINE_COVERAGE --body 100
-            gh variable list
+      - name: Check out repository
+        uses: actions/checkout@v4
+        
+      - name: Install GitHub CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gh
+        
+      - name: Update LINE_COVERAGE variable
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub automatically provides this secret
+        run: |
+          gh api --method PATCH /repos/BrandonWong22/workflow-test-push-to-main/actions/variables/LINE_COVERAGE \
+            -f value="100"
+  
+
+    # steps:
+    #   - uses: actions/checkout@v4
+    #   - run: |
+    #         gh variable list
+    #         gh variable set LINE_COVERAGE --body 100
+    #         gh variable list
+    #     env:
+    #       GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
 
       # - name: Checkout repository
       #   uses: actions/checkout@v4
