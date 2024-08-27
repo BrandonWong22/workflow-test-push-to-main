@@ -1,11 +1,12 @@
+
 name: Reusable workflow
 
 on:
   workflow_call:
-    # inputs:
-    #   pat_token:
-    #     required: true
-    #     type: string
+    inputs:
+      pat_token:
+        required: true
+        type: string
 
 jobs:
   update-readme:
@@ -15,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.PAT_TOKEN }}
+          token: "${{ inputs.pat_token }}" # Use the input directly here
 
       # - name: Log first 3 characters of PAT_TOKEN
       #   run: |
