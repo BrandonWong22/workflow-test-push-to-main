@@ -1,0 +1,43 @@
+name: Reusable workflow
+
+on:
+  workflow_call:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        # with:
+        #   token: ${{ secrets.PAT_TOKEN }}
+
+      # - name: Log first 3 characters of PAT_TOKEN
+      #   run: |
+      #     echo "${{ secrets.PAT_TOKEN }}" | cut -c1-6
+
+      # - name: Get GitHub username and email
+      #   id: user_info
+      #   run: |
+      #     echo "GITHUB_USERNAME=${{ github.actor }}" >> $GITHUB_ENV
+      #     git_email=$(git log -1 --pretty=format:'%ae')
+      #     echo "GITHUB_EMAIL=brandonwong2608@gmail.com" >> $GITHUB_ENV
+
+      # - name: Configure Git
+      #   run: |
+      #     git config user.name $GITHUB_USERNAME
+      #     git config user.email $GITHUB_EMAIL
+
+      # - name: Add line to README
+      #   run: |
+      #     echo "hello" >> README.md
+      #     git add README.md
+      #     git commit -m "Add 'hello' to README.md"
+      #     git push origin HEAD:main
+
+      # - name: Push changes
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+      #   run: |
+      #     git push https://${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }} HEAD:main
