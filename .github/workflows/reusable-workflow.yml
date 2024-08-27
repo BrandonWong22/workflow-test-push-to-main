@@ -19,7 +19,7 @@ jobs:
         
       - name: Update LINE_COVERAGE variable
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub automatically provides this secret
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}  # GitHub automatically provides this secret
         run: |
           gh api \
           --method PATCH \
