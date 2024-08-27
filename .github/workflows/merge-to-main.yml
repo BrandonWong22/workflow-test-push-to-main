@@ -9,5 +9,4 @@ permissions:
 jobs:
   update-readme:
     uses: ./.github/workflows/reusable-workflow.yml
-    with:
-      pat_token: ${{ secrets.PAT_TOKEN }} # Pass the secret here as input
+    secrets: inherit
